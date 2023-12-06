@@ -9,15 +9,39 @@ addCardToPage(initialCards);
 // addCardToPage(test);
 
 const btnOpenPopupAddCard = document.querySelector(".profile__add-button");
+
 const popupAdd = document.querySelector(".popup_type_new-card");
-const popupClose = document.querySelector(".popup__close");
+const formAdd = popupAdd.querySelector(".popup__form");
+
+const popupClose = popupAdd.querySelector(".popup__close");
 
 const deleteCard = document.querySelector(".card__delete-button");
 
+const inputName = popupAdd.querySelector(".popup__input_type_card-name");
+const inputUrl = popupAdd.querySelector(".popup__input_type_url");
+
+formAdd.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  const nameCard = popupAdd.querySelector(".popup__input_type_card-name").value;
+  const imageUrl = popupAdd.querySelector(".popup__input_type_url").value;
+  const arr = [
+    {
+      name: nameCard,
+      link: imageUrl,
+    },
+  ];
+  addCardToPage(arr);
+  console.log(form.name);
+  debugger;
+});
 
 btnOpenPopupAddCard.addEventListener("click", () => {
   popupAdd.classList.add("popup_is-opened");
 });
+
+popupClose.addEventListener("click", () => {
+  popupAdd.classList.remove("popup_is-opened");
+})
 //popup_is-opened
 // @todo: Темплейт карточки
 // @todo: DOM узлы
@@ -45,5 +69,3 @@ deleteCard.addEventListener("click", (evt) => {
 });
 
 // @todo: Вывести карточки на страницу
-
-
