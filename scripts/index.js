@@ -1,49 +1,27 @@
-const test = [
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+// @todo: Темплейт карточки
+const cardTemplate = document.querySelector("#card-template").content;
 
-addCardToPage(initialCards);
-// addCardToPage(test);
-
-const btnOpenPopupAddCard = document.querySelector(".profile__add-button");
-const popupAdd = document.querySelector(".popup_type_new-card");
+// @todo: DOM узлы
+const cardList = document.querySelector(".places__list");
 const popupClose = document.querySelector(".popup__close");
 
-const deleteCard = document.querySelector(".card__delete-button");
-
-
-btnOpenPopupAddCard.addEventListener("click", () => {
-  popupAdd.classList.add("popup_is-opened");
-});
-//popup_is-opened
-// @todo: Темплейт карточки
-// @todo: DOM узлы
-
 // @todo: Функция создания карточки
-function addCardToPage(cards) {
-  cards.forEach(function (item) {
-    const cardTemplate = document.querySelector("#card-template").content;
-    const cardList = document.querySelector(".places__list");
-    const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-
-    cardElement.querySelector(".card__image").src = item.link;
-    cardElement.querySelector(".card__title").textContent = item.name;
-
-    cardList.prepend(cardElement);
-  });
+function addCardToPage(name, link, del) {
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  deleteButton = cardElement.querySelector(".card__delete-button");
+  cardElement.querySelector(".card__image").src = link;
+  cardElement.querySelector(".card__image").alt = name;
+  cardElement.querySelector(".card__title").textContent = name;
+  deleteButton.addEventListener("click", (del));
+  return cardElement;
 }
+
 // @todo: Функция удаления карточки
-
-deleteCard.addEventListener("click", (evt) => {
-  const card = evt.target.closest("li");
-  console.log(evt.currentTarget);
-  console.log(evt.target);
+function removeCard(event) {
+  const card = event.target.closest(".places__item");
   card.remove();
-});
-
+}
 // @todo: Вывести карточки на страницу
-
-
+initialCards.forEach(function (item) {
+  cardList.prepend(addCardToPage(item.name, item.link, removeCard));
+});
